@@ -8,21 +8,18 @@ def convert_time(duration: int) -> str:
         return f'{duration} сек'
     elif duration <= seconds_in_hour:  # в часе 3600 секунд
         minutes = duration // seconds_in_minute
-        seconds = duration - minutes * seconds_in_minute
+        seconds = duration % seconds_in_minute
         return f'{minutes} мин {seconds} сек'
     elif duration <= seconds_in_day:  # в сутках 86400 секунд
         hours = duration // seconds_in_hour
-        hours_to_seconds = hours * seconds_in_hour
-        minutes = (duration - hours_to_seconds) // seconds_in_minute
-        seconds = duration - hours_to_seconds - minutes * seconds_in_minute
+        minutes = duration % seconds_in_hour // seconds_in_minute
+        seconds = duration % seconds_in_hour % seconds_in_minute
         return f'{hours} час {minutes} мин {seconds} сек'
     else:
         days = duration // seconds_in_day
-        days_to_seconds = days * seconds_in_day
-        hours = (duration - days_to_seconds) // seconds_in_hour
-        hours_to_seconds = hours * seconds_in_hour
-        minutes = (duration - days_to_seconds - hours_to_seconds) // seconds_in_minute
-        seconds = duration - days_to_seconds - hours_to_seconds - minutes * seconds_in_minute
+        hours = (duration % seconds_in_day) // seconds_in_hour
+        minutes = duration % seconds_in_day % seconds_in_hour // seconds_in_minute
+        seconds = duration % seconds_in_day % seconds_in_hour % seconds_in_minute
         return f'{days} дн {hours} час {minutes} мин {seconds} сек'
 
 
