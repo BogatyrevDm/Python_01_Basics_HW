@@ -10,8 +10,10 @@ def read_prices(first_position=-1, last_position=-1):
                     else:
                         print(line.strip())
             else:
-                price = line.strip()
-                print(price)
+                print(line.strip())
+            # если указана конечная позиция - прервем цикл чтения
+            if last_position >= 0 and i == last_position:
+                break
 
 
 if __name__ == '__main__':
