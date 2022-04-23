@@ -1,8 +1,12 @@
 import os
 from collections import defaultdict
+import json
 
 # Определим базовый путь для перебора
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Определим имя папки
+DIR_NAME = os.path.split(BASE_DIR)[-1]
 
 size_dict = defaultdict(tuple)
 
@@ -31,6 +35,8 @@ for root, dirs, files in os.walk(BASE_DIR):
 
     # Отсортируем словарь по убыванию ключей
     dict_sorted = dict(sorted(size_dict.items(), key=lambda x: len(str(x[0])), reverse=True))
-
-    # Выведем результат
-    print(dict_sorted)
+    # Переведем в json-формат
+    dict_jsoned = json.dumps(dict_sorted)
+    # Сохраним в корень
+    with open(f'{DIR_NAME}_summary.json', 'w', encoding='utf-8') as fw:
+        fw.write(dict_jsoned)
