@@ -6,9 +6,10 @@ def type_logger(func):
     def wrapper(*args, **kwargs):
         result = func(*args, **kwargs)
         # Получим список строк неименованных аргументов
-        logger_result_args = [f'{i}: {type(i)}' for i in args]
+        logger_result_args = map(lambda i: f'{i}: {type(i)}', args)
+
         # Получим список строк именованных аргументов
-        logger_result_kwargs = [f'{i[1]}: {type(i[1])}' for i in kwargs.items()]
+        logger_result_kwargs = map(lambda i: f'{i[1]}: {type(i[1])}', kwargs.items())
         # Тип значения функции
         print(type(func))
         # Залогируем аргументы и имя функции
